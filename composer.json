@@ -1,0 +1,9 @@
+{
+    "name": "lw2s/todo-generator",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TodoGenerator\\": "src/"
+        }
+    }
+}

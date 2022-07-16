@@ -4,36 +4,36 @@ namespace TodoGenerator;
 
 class FileManager
 {
-    private $files;
+    private $filePathList;
     private $fileContents;
 
     public function __construct($rootPath)
     {
         $rootPath = rtrim($rootPath, '/');
-        $this->files = $this->extractFilePathList($rootPath);
+        $this->filePathList = $this->extractFilePathList($rootPath);
     }
 
     private function extractFilePathList($dir)
     {
         $files = glob($dir . '/*');
 
-        $fileList = [];
+        $filePathList = [];
         foreach ($files as $file) {
             if (is_file($file)) {
-                $fileList[] = $file;
+                $filePathList[] = $file;
             }
 
             if (is_dir($file)) {
-                $fileList = array_merge($fileList, $this->extractFilePathList($file));
+                $filePathList = array_merge($filePathList, $this->extractFilePathList($file));
             }
         }
 
-        return $fileList;
+        return $filePathList;
     }
 
-    public function getFiles()
+    public function getFilePathList()
     {
-        return $this->files;
+        return $this->filePathList;
     }
 
     public function getFileContents()
@@ -44,7 +44,7 @@ class FileManager
     public function process()
     {
         $result = [];
-        foreach ($this->getFiles() as $filepath) {
+        foreach ($this->getFilePathList() as $filepath) {
             $fileContents = file($filepath);
             foreach ($this->yieldContents($fileContents) as $line => $content) {
                 if (strpos($content, '// TODO:') !== false) {

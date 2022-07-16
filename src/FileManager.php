@@ -36,11 +36,6 @@ class FileManager
         return $this->files;
     }
 
-    public function setFileContents($filepath)
-    {
-        $this->fileContents = file($filepath);
-    }
-
     public function getFileContents()
     {
         return $this->fileContents;

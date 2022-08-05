@@ -8,10 +8,9 @@ class FileManager
 {
     private $filePath;
 
-    public function __construct($rootPath)
+    public function __construct()
     {
-        $rootPath = rtrim($rootPath, '/');
-        $this->filePath = new FilePath($rootPath);
+        $this->filePath = new FilePath();
     }
 
     public function process()

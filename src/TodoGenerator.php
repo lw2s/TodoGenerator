@@ -10,9 +10,9 @@ class TodoGenerator
     private $fileManager;
     private $view;
 
-    public function __construct($rootPath)
+    public function __construct()
     {
-        $this->fileManager = new FileManager($rootPath);
+        $this->fileManager = new FileManager();
         $this->view = new View();
     }
 

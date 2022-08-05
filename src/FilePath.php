@@ -5,10 +5,13 @@ namespace TodoGenerator;
 class FilePath
 {
     private $filePathList;
+    // Absolute path or Relative path
+    private $rootPath = './';
 
-    public function __construct($rootpath)
+    public function __construct()
     {
-        $this->filePathList = $this->extractFilePathList($rootpath);
+        $rootPath = rtrim($this->rootPath, '/');
+        $this->filePathList = $this->extractFilePathList($rootPath);
     }
 
     private function extractFilePathList($dir)

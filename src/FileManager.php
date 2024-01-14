@@ -2,23 +2,18 @@
 
 namespace TodoGenerator;
 
-use TodoGenerator\File;
+use TodoGenerator\FilePathList;
 
 class FileManager
 {
-    private $filePath;
+    private $fileContents;
 
-    public function __construct()
-    {
-        $this->filePath = new FilePath();
-    }
-
-    public function process()
+    public function process(FilePathList $filePathList)
     {
         $result = [];
-        foreach ($this->filePath->getFilePathList() as $filepath) {
-            $fileContents = file($filepath);
-            foreach ($this->yieldContents($fileContents) as $line => $content) {
+        foreach ($filePathList->getFilePathList() as $filepath) {
+            $contents = file($filepath);
+            foreach ($this->yieldContents($contents) as $line => $content) {
                 if (strpos($content, '// TODO:') !== false) {
                     $result[] = [
                         'filepath' => $filepath,
@@ -29,7 +24,7 @@ class FileManager
             }
         }
 
-        return $result;
+        $this->fileContents = $result;
     }
 
     private function yieldContents($fileContents)
@@ -37,5 +32,10 @@ class FileManager
         foreach ($fileContents as $fileContent) {
             yield $fileContent;
         }
+    }
+
+    public function getFileContents()
+    {
+        return $this->fileContents;
     }
 }

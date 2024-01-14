@@ -3,6 +3,7 @@
 namespace TodoGenerator;
 
 use TodoGenerator\FileManager;
+use TodoGenerator\FilePathList;
 use TodoGenerator\View;
 
 class TodoGenerator
@@ -18,7 +19,7 @@ class TodoGenerator
 
     public function run()
     {
-        $contents = $this->fileManager->process();
-        $this->view->render($contents);
+        $this->fileManager->process(new FilePathList());
+        $this->view->render($this->fileManager->getFileContents());
     }
 }
